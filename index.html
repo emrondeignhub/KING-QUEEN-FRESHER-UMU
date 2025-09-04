@@ -24,6 +24,30 @@
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
+    form {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    select, input[type="email"] {
+      padding: 8px 12px;
+      margin: 10px 0;
+      width: 100%;
+      max-width: 300px;
+      font-size: 1em;
+    }
+    button {
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1.1em;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    button:hover {
+      background-color: #219150;
+    }
     iframe {
       width: 100%;
       border: none;
@@ -42,9 +66,38 @@
   <div class="container">
     <h1>Fresher King & Queen Voting</h1>
     <h2>KING AND QUEEN FRESHER VOTING</h2>
-    <p>Please vote using your student email address (@stud.umu.ac.ug only).</p>
+    <p>Please vote for one King and one Queen using your student email address (@stud.umu.ac.ug only).</p>
+
+    <!-- Custom HTML form that submits directly to Google Form -->
+    <form 
+      action="https://docs.google.com/forms/d/e/1FAIpQLSf2oVsy4CY0-kvP1ar5_1sl0AqaLulRI7gdpNCTVJy6klXoVw/formResponse" 
+      method="POST" 
+      target="hidden_iframe" 
+      onsubmit="return validateEmail()"
+    >
+      <label for="kingSelect">Select King:</label><br />
+      <select id="kingSelect" name="entry.948102814" required>
+        <option value="" disabled selected>Choose a King</option>
+        <option value="LUTWAMA BENJAMIN FRANCIS">LUTWAMA BENJAMIN FRANCIS</option>
+        <option value="KALUNGI JOSEPH">KALUNGI JOSEPH</option>
+      </select><br />
+
+      <label for="queenSelect">Select Queen:</label><br />
+      <select id="queenSelect" name="entry.1234567890" required>
+        <option value="" disabled selected>Choose a Queen</option>
+        <option value="NAMATOVU KEVIN">NAMATOVU KEVIN</option>
+      </select><br />
+
+      <label for="emailInput">Enter your student email:</label><br />
+      <input type="email" id="emailInput" name="entry.1122334455" placeholder="you@stud.umu.ac.ug" required /><br />
+
+      <button type="submit">Vote Now</button>
+    </form>
+
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
     <!-- Embedded Google Form -->
+    <h2>Or Vote Directly Below</h2>
     <iframe 
       src="https://docs.google.com/forms/d/e/1FAIpQLSd48dIUklBqm1PtVol59rw7tTcLMeaVVtVgVL5cAwIf0v6uVA/viewform?embedded=true" 
       frameborder="0" 
@@ -55,5 +108,29 @@
 
     <p class="footer">Remember to use your student email address when voting</p>
   </div>
+
+  <script>
+    function validateEmail() {
+      const emailInput = document.getElementById('emailInput').value.trim().toLowerCase();
+      const domain = '@stud.umu.ac.ug';
+      if (!emailInput.endsWith(domain)) {
+        alert(`Please enter a valid student email address ending with ${domain}`);
+        return false;
+      }
+      return true;
+    }
+  </script>
 </body>
 </html>
+
+✅ Now your page has two ways to vote:
+
+1. A custom HTML form that posts directly into your Google Form backend.
+
+
+2. The embedded Google Form itself.
+
+
+
+Do you want both methods kept, or should I remove the custom form and keep only the embedded Google Form (simpler, less error-prone)?
+
