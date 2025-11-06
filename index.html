@@ -4,110 +4,177 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fresher King & Queen Voting</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
+      font-family: 'Roboto', sans-serif;
+      background-color: #eef2f7;
       margin: 0;
       padding: 20px;
       color: #333;
     }
-    h1, h2 {
-      text-align: center;
-      color: #2c3e50;
-    }
     .container {
       max-width: 700px;
-      margin: 0 auto;
-      background: white;
-      padding: 20px 30px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      text-align: center;
+      color: #1a2b4c;
+      margin-bottom: 10px;
+    }
+    p {
+      text-align: center;
+      font-size: 1em;
+      margin-bottom: 20px;
+    }
+    .candidate {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .profile-pic {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 15px;
+      border: 2px solid #ccc;
     }
     form {
-      text-align: center;
-      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      align-self: flex-start;
     }
     select, input[type="email"] {
-      padding: 8px 12px;
-      margin: 10px 0;
+      padding: 10px;
       width: 100%;
-      max-width: 300px;
+      max-width: 400px;
       font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
     button {
-      background-color: #27ae60;
+      background-color: #007b5e;
       color: white;
       border: none;
-      padding: 12px 25px;
+      padding: 12px 30px;
       font-size: 1.1em;
       border-radius: 5px;
       cursor: pointer;
-      margin-top: 15px;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
     }
     button:hover {
-      background-color: #219150;
+      background-color: #005f47;
     }
-    iframe {
-      width: 100%;
-      border: none;
-      border-radius: 8px;
-      height: 600px;
+    .share-buttons a {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 15px;
+      background-color: #25D366;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+    .share-buttons a:hover {
+      background-color: #1DA851;
     }
     .footer {
       text-align: center;
       margin-top: 30px;
       font-size: 0.9em;
-      color: #777;
+      color: #666;
+    }
+    #countdown {
+      font-weight: bold;
+      color: #c0392b;
+      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Fresher King & Queen Voting</h1>
-    <h2>KING AND QUEEN FRESHER VOTING</h2>
+    <h2>Cast Your Vote</h2>
     <p>Please vote for one King and one Queen using your student email address (@stud.umu.ac.ug only).</p>
+    <p id="countdown"></p>
 
-    <!-- Custom HTML form that submits directly to Google Form -->
     <form 
       action="https://docs.google.com/forms/d/e/1FAIpQLSf3EBVnpYrtUQN6Sy0hkMqSGqmuNg7McRPdD2nQTY-ZDB95tQ/viewform?usp=sharing&ouid=109783610572805591087" 
-      target="hidden_iframe" 
+      target="_blank" 
       onsubmit="return validateEmail()"
     >
-      <label for="kingSelect">Select King:</label><br />
-      <select id="kingSelect" name="entry.948102814" required>
-        <option value="" disabled selected>Choose a King</option>
-        <option value="LUTWAMA BENJAMIN FRANCIS">LUTWAMA BENJAMIN FRANCIS</option>
-        <option value="KALUNGI JOSEPH">KALUNGI JOSEPH</option>
-      </select><br />
+      <label for="kingSelect">Select King:</label>
+      <div class="candidate">
+        <img src="images/benjamin.jpg" alt="Lutwama Benjamin Francis" class="profile-pic">
+        <select id="kingSelect" name="entry.948102814" required>
+          <option value="" disabled selected>Choose a King</option>
+          <option value="LUTWAMA BENJAMIN FRANCIS">LUTWAMA BENJAMIN FRANCIS</option>
+          <option value="KALUNGI JOSEPH">KALUNGI JOSEPH</option>
+        </select>
+      </div>
 
-      <label for="queenSelect">Select Queen:</label><br />
-      <select id="queenSelect" name="entry.1234567890" required>
-        <option value="" disabled selected>Choose a Queen</option>
-        <option value="NAMATOVU KEVIN">NAMATOVU KEVIN</option>
-      </select><br />
+      <label for="queenSelect">Select Queen:</label>
+      <div class="candidate">
+        <img src="images/kevin.jpg" alt="Namatovu Kevin" class="profile-pic">
+        <select id="queenSelect" name="entry.1234567890" required>
+          <option value="" disabled selected>Choose a Queen</option>
+          <option value="NAMATOVU KEVIN">NAMATOVU KEVIN</option>
+        </select>
+      </div>
 
-      <label for="emailInput">Enter your student email:</label><br />
-      <input type="email" id="emailInput" name="entry.1122334455" placeholder="you@stud.umu.ac.ug" required /><br />
+      <label for="emailInput">Student Email:</label>
+      <input type="email" id="emailInput" name="entry.1122334455" placeholder="you@stud.umu.ac.ug" required />
 
       <button type="submit">Vote Now</button>
     </form>
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf3EBVnpYrtUQN6Sy0hkMqSGqmuNg7McRPdD2nQTY-ZDB95tQ/viewform?embedded=true" width="640" height="458" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
 
-    <p class="footer">Remember to use your student email address when voting</p>
+    <div class="share-buttons">
+      <a href="https://wa.me/?text=Vote%20for%20Fresher%20King%20%26%20Queen%20at%20UMU%20https://emrondeignhub.github.io/KING-QUEEN-FRESHER-UMU/" target="_blank">Share on WhatsApp</a>
+    </div>
+
+    <p class="footer">Voting is open to UMU students only. Use your official email to participate.</p>
   </div>
 
   <script>
     function validateEmail() {
-      const emailInput = document.getElementById('emailInput').value.trim().toLowerCase();
-      const domain = '@stud.umu.ac.ug';
-      if (!emailInput.endsWith(domain)) {
-        alert(`Please enter a valid student email address ending with ${domain}`);
+      const email = document.getElementById('emailInput').value.trim().toLowerCase();
+      if (!email.endsWith('@stud.umu.ac.ug')) {
+        alert('Please use a valid UMU student email address ending with @stud.umu.ac.ug');
         return false;
       }
       return true;
     }
+
+    const deadline = new Date("2025-11-10T23:59:59").getTime();
+    const countdown = document.getElementById("countdown");
+
+    setInterval(() => {
+      const now = new Date().getTime();
+      const timeLeft = deadline - now;
+
+      if (timeLeft < 0) {
+        countdown.innerHTML = "Voting has ended.";
+        return;
+      }
+
+      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+      const seconds = Math.floor((timeLeft / 1000) % 60);
+
+      countdown.innerHTML = `Voting ends in ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
   </script>
 </body>
 </html>
-
